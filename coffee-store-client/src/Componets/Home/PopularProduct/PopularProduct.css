@@ -1,0 +1,5 @@
+.popular_bg{
+    background-image: url("/public/1.png"), url("/public/5.png");
+    background-repeat: no-repeat;
+    background-position: left top, right bottom;
+}
