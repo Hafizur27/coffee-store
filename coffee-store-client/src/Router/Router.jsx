@@ -5,6 +5,9 @@ import AddCoffee from "../Componets/AddCoffee/AddCoffee";
 import ProductDetails from "../Componets/Home/PopularProduct/Product/ProductDetails/ProductDetails";
 import UpdateCoffee from "../Componets/Home/PopularProduct/Product/UpdateCoffee/UpdateCoffee";
 import ErrorPage from "../Componets/ErrorPage/ErrorPage";
+import SignIn from "../Componets/SignIn/SignIn";
+import SignUp from "../Componets/SignUp/SignUp";
+import PrivateRoute from "../Componets/PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -18,7 +21,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "addcoffe",
-        element: <AddCoffee />,
+        element: (
+          <PrivateRoute>
+            <AddCoffee />
+          </PrivateRoute>
+        ),
       },
       {
         path: "coffee/:id",
@@ -26,7 +33,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "updatecoffee/:id",
-        element: <UpdateCoffee />,
+        element: (
+          <PrivateRoute>
+            <UpdateCoffee />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "signup",
+        element: <SignUp />,
+      },
+      {
+        path: "signin",
+        element: <SignIn />,
       },
     ],
   },

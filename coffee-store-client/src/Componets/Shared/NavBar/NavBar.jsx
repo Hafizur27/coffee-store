@@ -2,9 +2,20 @@ import { useState } from "react";
 import { MdMenu } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import logo from "../../../assets/images/more/logo1.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../useAuth/useAuth";
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, logOut } = useAuth();
+  console.log(user);
+  const navigate = useNavigate();
+  const handleSignOut = () => {
+    logOut()
+      .then(() => {
+        navigate("/signin");
+      })
+      .catch((error) => console.log(error));
+  };
   return (
     <div className="bg-[#372727]">
       <div className="flex justify-between md:flex-col">
@@ -24,8 +35,25 @@ const NavBar = () => {
             <Link to="/">
               <li>Home</li>
             </Link>
-            <li>Log In</li>
-            <li>Log Out</li>
+            {user?.email ? (
+              <>
+                <li className="cursor-pointer" onClick={() => handleSignOut()}>
+                  Sign Out
+                </li>
+                <li>
+                  <img
+                    title={user.displayName}
+                    className="h-10 w-10 rounded-full cursor-pointer"
+                    src={user?.photoURL}
+                    alt=""
+                  />
+                </li>
+              </>
+            ) : (
+              <Link to="/signin">
+                <li>Sign In</li>
+              </Link>
+            )}
           </ul>
         </div>
       </div>
